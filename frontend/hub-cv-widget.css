@@ -1,0 +1,164 @@
+/* ============================================
+   HUB-UR CV Widget — Dropdown Download Button
+   ============================================ */
+
+.hub-cv-widget {
+    margin: 14px 0 18px;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+/* ── Trigger button ── */
+.hub-cv-trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 11px 16px;
+    border: none;
+    border-radius: 5px;
+    background: #b91c2e;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hub-cv-trigger:hover {
+    background: #8b1422;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+}
+
+.hub-cv-trigger:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+
+/* Forzar texto blanco: el tema del perfil pinta los <span> en gris (#595b5b)
+   con una regla más específica; lo neutralizamos para el botón. */
+.hub-cv-widget .hub-cv-trigger,
+.hub-cv-widget .hub-cv-trigger span,
+.hub-cv-widget .hub-cv-trigger-icon,
+.hub-cv-widget .hub-cv-trigger-text,
+.hub-cv-widget .hub-cv-trigger-chevron,
+.hub-cv-dropdown .hub-cv-option,
+.hub-cv-dropdown .hub-cv-option span {
+    color: #fff !important;
+}
+
+.hub-cv-trigger-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.hub-cv-trigger-text {
+    flex: 1;
+}
+
+.hub-cv-trigger-chevron {
+    font-size: 14px;
+    opacity: 0.9;
+    transition: transform 0.25s ease;
+}
+
+.hub-cv-trigger[aria-expanded="true"] .hub-cv-trigger-chevron {
+    transform: rotate(180deg);
+}
+
+/* Loading state */
+.hub-cv-trigger.loading {
+    opacity: 0.7;
+    cursor: wait;
+    pointer-events: none;
+}
+
+.hub-cv-trigger.loading .hub-cv-trigger-text::after {
+    content: ' — Generando PDF…';
+    font-weight: 400;
+}
+
+/* Error state */
+.hub-cv-trigger.error {
+    background: #6b1a1a;
+}
+
+.hub-cv-trigger.error:hover {
+    background: #6b1a1a;
+}
+
+.hub-cv-trigger.error .hub-cv-trigger-text::after {
+    content: ' — Error, intente de nuevo';
+    font-weight: 400;
+}
+
+/* ── Dropdown panel (fixed position to escape overflow:hidden parents) ── */
+.hub-cv-dropdown {
+    display: none;
+    position: fixed;
+    background: #b91c2e;
+    border: 1px solid #8b1422;
+    border-radius: 5px;
+    z-index: 10000;
+    overflow: hidden;
+    min-width: 240px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.30);
+}
+
+.hub-cv-dropdown.open {
+    display: block;
+}
+
+
+
+/* ── Menu options ── */
+.hub-cv-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    background: #b91c2e;
+    cursor: pointer;
+}
+
+.hub-cv-option:hover {
+    background: #8b1422;
+    color: #fff;
+    text-decoration: none;
+}
+
+.hub-cv-option + .hub-cv-option {
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.hub-cv-opt-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .hub-cv-trigger {
+        font-size: 12px;
+        padding: 10px 12px;
+    }
+    .hub-cv-trigger-icon,
+    .hub-cv-opt-icon {
+        font-size: 16px;
+    }
+    .hub-cv-option {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}

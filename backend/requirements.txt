@@ -1,0 +1,15 @@
+# Dependencias del backend del generador de hojas de vida.
+# El resto de imports son de la librería estándar de Python 3.8+.
+
+python-docx        # construcción de los documentos (import docx)
+python-dotenv      # carga de variables desde .env (import dotenv)
+requests           # consultas HTTP a Solr / VIVO
+
+# ── Conversión a PDF ────────────────────────────────────────────────────────
+# Linux (servidor): la hace LibreOffice headless vía la ruta de SOFFICE_PATH.
+#                   No requiere paquetes Python adicionales.
+#
+# Windows (desarrollo): la hace Microsoft Word a través de COM. Requiere Word
+#                       instalado y, además, estos dos paquetes:
+#
+#   pip install pywin32 docx2pdf

@@ -1,0 +1,88 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment variables (secretos, NO versionar)
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+backend.log
+
+# Temporal
+/tmp
+*.tmp
+*.bak
+.cache/
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Pycache
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# Formatos (plantillas grandes, generadas)
+# Descomentar si quieres excluir formatos binarios
+# *.docx
+# *.pdf
+# (comentadas porque SÍ queremos versionar las plantillas base)
+
+# Reportes generados
+verificacion/*demo*.pdf
+verificacion/*demo*.docx
+verificacion/report*.html
+verificacion/.cache/
+
+# Backups
+*.BACKUP
+*.backup
+~/backup*
+
+# Hojas de vida generadas en tiempo de ejecución (contienen datos personales)
+cv_output/
+backend/cv_output/
