@@ -4,6 +4,34 @@ Sistema modular para generar hojas de vida en formatos **Harvard** (DOCX→PDF v
 
 ---
 
+## 🔄 Flujo en tiempo de ejecución
+
+```
+Navegador (perfil de investigador)
+   │  click "Descargar Hoja de Vida" → GET /api/cv/generate?uri=…&format=harvard-pdf
+   ▼
+CVProxyServlet (Tomcat, webapps/HUBvivo115)
+   │  reenvía la petición al backend
+   ▼  GET localhost:3001/api/cv/generate?…
+cv_api.py (Python, localhost:3001)
+   │  cv_generator extrae los datos de Solr
+   │  harvard_cv.py (DOCX→PDF vía LibreOffice) | pdf_filler.py (Europass)
+   ▼  application/pdf + Content-Disposition: attachment
+Navegador descarga  Nombre_Apellido_harvard.pdf
+```
+
+**Puntos clave del flujo:**
+
+- El navegador **nunca habla directo con el backend Python**: siempre pasa por el
+  servlet, que es quien conoce la dirección interna del servicio.
+- `cv_api.py` escucha **solo en `localhost:3001`**. No está expuesto a la red, y
+  ese aislamiento es el control de acceso (no hay clave de API).
+- Añadir un formato nuevo es escribir **un archivo** en `backend/` y registrarlo
+  en `cv_api.py`. **No se recompila Java**: el servlet reenvía el parámetro
+  `format` tal cual, así que no hay que tocarlo ni redesplegarlo.
+
+---
+
 ## 📖 Empezar
 
 - **Desarrolladores:** ver [`GUIA_INSTALACION_FINAL.md`](GUIA_INSTALACION_FINAL.md)
