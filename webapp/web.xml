@@ -2,6 +2,36 @@
 
 <!-- $This file is distributed under the terms of the license in LICENSE$ -->
 
+<!--
+  ============================================================================
+  ⚠️  ESTE ES EL web.xml COMPLETO DEL SERVIDOR — NO SOLO DEL GENERADOR DE CV
+  ============================================================================
+
+  QUE ES
+    Copia de referencia del web.xml real de HUBvivo115. Contiene, ademas del
+    CVProxyServlet (que sí pertenece a este modulo), los servlets de los OTROS
+    dos modulos del sistema:
+      - PagedSearchControllerFaceted x5 (find-a-supervisor/partner/program/
+        lab/speaker) y UrAutocompleteController -> pertenecen al repo `busquedas`
+      - CoauthorVizServlet (/coauthorViz)        -> pertenece al repo del mapa
+
+  QUE HACER AL DESPLEGAR
+    NO sobrescribir el web.xml del servidor con este archivo completo: harias
+    desaparecer cualquier servlet que el servidor tenga y este archivo no
+    refleje (o viceversa). Lo unico que este modulo aporta es el bloque
+    <servlet>/<servlet-mapping> de "CVProxyServlet" (mas abajo, cerca del
+    final): AÑADE solo ese fragmento al web.xml real si aun no esta.
+
+  ⚠️ DISCREPANCIA DETECTADA (sin verificar cual es la correcta)
+    Las facetas de HUBURFindASupervisor en este archivo (facet-1 =
+    facet_expertiseAreas) NO coinciden con las del fragmento de referencia del
+    repo `busquedas` (backend/servlet-config/web-xml-search-servlets.xml,
+    facet-1 = facet_academicDepartment). Antes de tocar cualquiera de los dos,
+    verificar contra el web.xml REAL del servidor
+    (/opt/tomcat/webapps/HUBvivo115/WEB-INF/web.xml) cual prioridad esta
+    vigente.
+-->
+
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee

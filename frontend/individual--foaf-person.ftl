@@ -5,6 +5,27 @@
     in the Wilma theme and should reside in the themes/wilma/templates directory.
 -->
 
+<#--
+  ============================================================================
+  MODIFICACION HUB-UR: widget de descarga de hoja de vida
+  ============================================================================
+
+  QUE HACE
+    Sobre la plantilla base de VIVO, este archivo agrega el boton desplegable
+    "Descargar Hoja de Vida" (id="hub-cv-widget") en el perfil del investigador.
+    Al elegir un formato, dispara GET /api/cv/generate?uri=...&format=...
+
+  DE QUE DEPENDE
+    - CVProxyServlet (webapp/CVProxyServlet.java) : reenvia la peticion al
+      backend Python. Es una llamada same-origin sin autenticacion adicional
+      (no hay API key: el backend solo escucha en localhost, ver README).
+    - hub-cv-widget.css (frontend/hub-cv-widget.css) : estilos del boton.
+
+  DONDE VA EN EL SERVIDOR
+    /opt/tomcat/webapps/HUBvivo115/themes/wilma/templates/individual--foaf-person.ftl
+-->
+
+
 <#include "individual-setup.ftl">
 <#import "lib-vivo-properties.ftl" as vp>
 <#import "individual-qrCodeGenerator.ftl" as qr>
@@ -84,8 +105,10 @@
 
                 <script>
                 (function() {
-                    // Same-origin: el proxy /api/cv/* (CVProxyServlet) inyecta la API key.
-                    // El navegador nunca ve la clave ni la envía por query string.
+                    // Same-origin: el navegador llama a /api/cv/* (mismo dominio),
+                    // el CVProxyServlet reenvía la petición al backend Python, que
+                    // solo acepta conexiones desde localhost. No hay API key: el
+                    // aislamiento de red ES el control de acceso.
                     var widget = document.getElementById('hub-cv-widget');
                     if (!widget) return;
                     var trigger = widget.querySelector('.hub-cv-trigger');

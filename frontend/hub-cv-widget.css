@@ -1,5 +1,14 @@
 /* ============================================
    HUB-UR CV Widget — Dropdown Download Button
+   ============================================
+   QUE HACE
+     Estiliza el boton desplegable "Descargar Hoja de Vida" que
+     individual--foaf-person.ftl inyecta en el perfil del investigador
+     (id="hub-cv-widget"). Sin este CSS el boton funciona pero se ve como
+     HTML sin estilos.
+
+   DONDE VA EN EL SERVIDOR
+     /opt/tomcat/webapps/HUBvivo115/themes/wilma/css/hub-cv-widget.css
    ============================================ */
 
 .hub-cv-widget {
