@@ -22,14 +22,13 @@
     <servlet>/<servlet-mapping> de "CVProxyServlet" (mas abajo, cerca del
     final): AÑADE solo ese fragmento al web.xml real si aun no esta.
 
-  ⚠️ DISCREPANCIA DETECTADA (sin verificar cual es la correcta)
-    Las facetas de HUBURFindASupervisor en este archivo (facet-1 =
-    facet_expertiseAreas) NO coinciden con las del fragmento de referencia del
-    repo `busquedas` (backend/servlet-config/web-xml-search-servlets.xml,
-    facet-1 = facet_academicDepartment). Antes de tocar cualquiera de los dos,
-    verificar contra el web.xml REAL del servidor
-    (/opt/tomcat/webapps/HUBvivo115/WEB-INF/web.xml) cual prioridad esta
-    vigente.
+  ✅ FACETAS: este archivo COINCIDE con el servidor (verificado)
+    Las facetas de HUBURFindASupervisor aqui (facet-1 = facet_expertiseAreas)
+    son las que estan vigentes en el servidor de practicas. El fragmento de
+    referencia del repo `busquedas`
+    (backend/servlet-config/web-xml-search-servlets.xml) propone otro orden
+    (facet-1 = facet_academicDepartment); es una reorganizacion deliberada que
+    aun NO esta desplegada. Ver la nota en ese archivo.
 -->
 
 <web-app xmlns="http://java.sun.com/xml/ns/javaee"

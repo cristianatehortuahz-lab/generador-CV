@@ -37,7 +37,7 @@ prácticas (julio 2026) · ⚠️ diferencia conocida, ver nota · — no aplica
 | Archivo | Qué hace | Estado |
 |---|---|---|
 | [`webapp/CVProxyServlet.java`](webapp/CVProxyServlet.java) | Reverse proxy: reenvía `/api/cv/generate` al backend Python en `localhost:3001`. El navegador nunca habla directo con Python. | ✅ paquete `co.edu.urosario.hubur` coincide con el `.class` del servidor |
-| [`webapp/web.xml`](webapp/web.xml) | **Copia completa** del `web.xml` del servidor (no solo de este módulo): incluye también los servlets del buscador y del mapa, como referencia. Al desplegar, solo se añade el bloque de `CVProxyServlet` — nunca se sobrescribe el `web.xml` real con este archivo entero. | ⚠️ discrepancia de facetas de búsqueda vs. `busquedas/backend/servlet-config/web-xml-search-servlets.xml` — ver nota en el propio archivo |
+| [`webapp/web.xml`](webapp/web.xml) | **Copia completa** del `web.xml` del servidor (no solo de este módulo): incluye también los servlets del buscador y del mapa, como referencia. Al desplegar, solo se añade el bloque de `CVProxyServlet` — nunca se sobrescribe el `web.xml` real con este archivo entero. | ✅ facetas verificadas = servidor. El fragmento de `busquedas` propone otro orden (no desplegado) — ver nota en el propio archivo |
 
 ## Verificación
 
@@ -81,5 +81,6 @@ igual que Harvard/Europass, y actualizar este inventario y el README).
 
 1. **`cv_api.py`** — el repo ya no tiene código de API key; el servidor sí.
    Falta desplegar la versión del repo para que coincidan.
-2. **`web.xml`** — discrepancia de facetas de búsqueda con el fragmento del
-   repo `busquedas`; verificar contra el servidor cuál está vigente.
+**Ya resuelto:** las facetas de `web.xml` se verificaron contra el servidor y
+coinciden (`facet_expertiseAreas` primero). El fragmento del repo `busquedas`
+propone otro orden, decisión de producto pendiente, no un error.
