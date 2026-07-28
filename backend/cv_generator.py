@@ -6,7 +6,20 @@ Extrae datos de investigadores desde Solr + VIVO y genera CVs en formato JSON.
 Fuentes de datos:
   - Solr (http://localhost:8983/solr/vivocore): metadata, publicaciones, grants, expertise
   - VIVO (http://localhost:8080): JSON-LD embebido (email, teléfono, afiliaciones, ORCID, Scholar)
-  - VIVO HTML: overview, educación, áreas de investigación
+  - VIVO HTML: overview, educación, tesis dirigidas
+
+⚠️ DEUDA TÉCNICA — el scraping de HTML debe retirarse
+-----------------------------------------------------
+La tercera fuente (VIVO HTML, ver _extract_from_vivo) obtiene overview,
+educación y tesis aplicando expresiones regulares sobre la página del perfil.
+Es frágil: si cambia una plantilla .ftl o se actualiza VIVO, las regex dejan de
+encontrar el dato y esas secciones del CV quedan VACÍAS sin lanzar error.
+
+La extracción debe pasar a ser por API. Esos tres datos existen en el modelo RDF
+de VIVO; la vía de menor fricción es pedir el JSON-LD completo del individuo
+(ya se parsea JSON-LD embebido en _parse_jsonld), o indexarlos en Solr.
+
+Detalle y alternativas: DEUDA-TECNICA-Scraping-a-API.md (raíz de HUB-UR).
 
 Uso:
   from cv_generator import CVExtractor, CVGenerator
@@ -487,7 +500,15 @@ class CVExtractor:
             print(f"  [WARN] Error grants: {e}")
     
     def _extract_from_vivo(self, cv: CVData):
-        """Extraer datos desde VIVO (JSON-LD + HTML scraping)."""
+        """Extraer datos desde VIVO (JSON-LD + HTML scraping).
+
+        ⚠️ DEUDA TÉCNICA: los tres parseos de HTML de abajo (_parse_overview,
+        _parse_education, _parse_theses) deben reemplazarse por consumo de API.
+        Dependen de expresiones regulares sobre la página renderizada, así que
+        un cambio de plantilla los rompe en silencio. El _parse_jsonld sí es
+        consumo estructurado y se conserva.
+        Ver DEUDA-TECNICA-Scraping-a-API.md en la raíz de HUB-UR.
+        """
         # Extraer URI corta para la URL
         short_uri = cv.uri.split("/individual/")[-1] if "/individual/" in cv.uri else cv.uri
         vivo_url = f"{VIVO_BASE}/individual?uri={cv.uri}"

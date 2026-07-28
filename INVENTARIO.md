@@ -77,6 +77,21 @@ servidor no sirve. El archivo se conserva en
 más adelante (solo requiere: copiarlo a `backend/`, registrarlo en `cv_api.py`
 igual que Harvard/Europass, y actualizar este inventario y el README).
 
+## Deuda técnica
+
+**El scraping de HTML debe retirarse; la extracción debe ser por API.**
+`cv_generator.py` usa tres fuentes: Solr y JSON-LD (consumo estructurado, se
+conservan) y **`vivo_html`**, que obtiene **overview, educación y tesis
+dirigidas** aplicando expresiones regulares sobre la página del perfil
+(`_extract_from_vivo`). Si cambia una plantilla o se actualiza VIVO, esas tres
+secciones del CV quedan vacías **sin lanzar error**.
+
+Esos datos existen en el modelo RDF; la vía de menor fricción es pedir el
+JSON-LD completo del individuo (ya se parsea JSON-LD embebido) o indexarlos en
+Solr.
+
+Detalle y alternativas: `DEUDA-TECNICA-Scraping-a-API.md` (raíz de HUB-UR).
+
 ## Pendientes conocidos (a resolver en el servidor)
 
 1. **`cv_api.py`** — el repo ya no tiene código de API key; el servidor sí.
